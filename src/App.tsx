@@ -14,6 +14,7 @@ export default function App() {
     tasks: 0,
     progress: 0,
   })
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [projects, setProjects] = useState(PROJECTS_DEFAULT)
   return (
     <div className={styles.app}>
@@ -50,8 +51,24 @@ export default function App() {
 
         {/* Fake project cards */}
         <div className={styles.grid}>
-          {projects.map(p => (
-            <div key={p.name} className={styles.projectCard}>
+          {projects.map((p, i) => (
+            <div key={p.name}
+              className={`${styles.projectCard} ${dragIndex === i ? styles.dragging : ''}`}
+              draggable
+              onDragStart={() => {setDragIndex(i); document.body.classList.add('dragging');}}
+              onDragEnd={() => {setDragIndex(null); document.body.classList.remove('dragging');}}
+              onDragOver={e => {
+                e.preventDefault()
+              }}
+              onDrop={() => {
+                if (dragIndex === null) return
+                const updated = [...projects]
+                const [removed] = updated.splice(dragIndex, 1)
+                updated.splice(i, 0, removed)
+                setProjects(updated)
+                setDragIndex(null)
+              }}
+            >
               <div className={styles.projectHeader}>
                 <span className={styles.projectName}>{p.name}</span>
                 <span className={`${styles.projectStatus} ${styles[p.statusKey]}`}>{p.status}</span>

@@ -36,3 +36,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--ink-dim); border-radius: 2px; }
+
+* {
+  cursor: inherit;
+}
+
+body.dragging {
+  cursor: grabbing !important;
+}

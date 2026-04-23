@@ -131,6 +131,7 @@
   gap: 10px;
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.2s;
+  cursor:grab;
 }
 
 .projectCard:hover { box-shadow: var(--shadow); }
@@ -280,4 +281,12 @@
 
 .submitBtn:hover {
   opacity: 0.8;
+}
+
+.dragging {
+  opacity: 0.3;
+  border: 2px dashed var(--ink-dim);
+  background: var(--cream-dark);
+  box-shadow: none;
+  cursor:grabbing;
 }
