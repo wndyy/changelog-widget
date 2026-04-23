@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --cream: #f5f0e8;
+  --cream-dark: #ede7d9;
+  --ink: #1a1612;
+  --ink-soft: #3d3830;
+  --ink-muted: #7a7068;
+  --ink-dim: #b5ad9f;
+  --accent: #c0392b;
+  --accent-warm: #e67e22;
+  --green: #27ae60;
+  --blue: #2980b9;
+  --border: rgba(26,22,18,0.12);
+  --border-strong: rgba(26,22,18,0.22);
+  --shadow: 0 8px 40px rgba(26,22,18,0.18), 0 2px 8px rgba(26,22,18,0.1);
+  --shadow-sm: 0 2px 12px rgba(26,22,18,0.1);
+  --display: 'Playfair Display', Georgia, serif;
+  --body: 'Lora', Georgia, serif;
+  --mono: 'DM Mono', monospace;
+  --widget-width: 420px;
+  --widget-height: 580px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--body);
+  background: #2a2520;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--ink-dim); border-radius: 2px; }

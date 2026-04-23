@@ -1,0 +1,201 @@
+.app {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+  background: #f0ebe0;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  background: #1a1612;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebarLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 12px;
+}
+
+.logoMark { color: #c0392b; font-size: 18px; }
+.logoText { font-family: var(--display); font-size: 20px; font-weight: 700; color: #f5f0e8; letter-spacing: -0.01em; }
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 12px;
+  flex: 1;
+}
+
+.navItem {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(245,240,232,0.45);
+  text-decoration: none;
+  padding: 9px 12px;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.navItem:hover { color: rgba(245,240,232,0.8); background: rgba(255,255,255,0.05); }
+.navActive { color: #f5f0e8 !important; background: rgba(255,255,255,0.08) !important; }
+
+.sidebarFooter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: #c0392b;
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarName { font-family: var(--mono); font-size: 12px; color: #f5f0e8; }
+.avatarRole { font-family: var(--mono); font-size: 10px; color: rgba(245,240,232,0.4); margin-top: 1px; }
+
+/* ── Main ── */
+.main { padding: 32px 40px; }
+
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.pageSub {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+.newBtn {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 10px 18px;
+  border-radius: 3px;
+  transition: opacity 0.15s;
+}
+
+.newBtn:hover { opacity: 0.8; }
+
+/* ── Project grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.projectCard {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
+}
+
+.projectCard:hover { box-shadow: var(--shadow); }
+
+.projectHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.projectName {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.projectStatus {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ontrack  { background: #eaf7ee; color: #1e7e40; }
+.atrisk   { background: #fdf0ee; color: #a03020; }
+.onhold   { background: #f5f5f0; color: #7a7068; }
+
+.projectDesc {
+  font-size: 12px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.projectMeta {
+  display: flex;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-dim);
+  letter-spacing: 0.04em;
+}
+
+.progressTrack {
+  height: 3px;
+  background: var(--cream-dark);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main { padding: 20px; }
+}

@@ -1,0 +1,16 @@
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+
+.new        { background: #eaf7ee; color: #1e7e40; border-color: #b8e6c6; }
+.improved   { background: #eaf2fb; color: #1f6ea8; border-color: #b3d4f0; }
+.fixed      { background: #fef9ec; color: #a0700a; border-color: #f0dfa0; }
+.deprecated { background: #fdf0ee; color: #a03020; border-color: #f0c4bc; }
