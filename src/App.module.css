@@ -290,3 +290,17 @@
   box-shadow: none;
   cursor:grabbing;
 }
+
+.ghostCard {
+  position: fixed;
+  pointer-events: none;
+  width: 280px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  opacity: 0.9;
+  transform: translate(-50%, -50%) rotate(2deg);
+  z-index: 9999;
+}

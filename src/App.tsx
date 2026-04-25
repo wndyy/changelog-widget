@@ -1,7 +1,7 @@
 import { ChangelogWidget } from './components/ChangelogWidget'
 import './index.css'
 import styles from './App.module.css'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 export default function App() {
   const [showNewProject, setShowNewProject] = useState(false);
@@ -15,7 +15,20 @@ export default function App() {
     progress: 0,
   })
   const [dragIndex, setDragIndex] = useState<number | null>(null);
-  const [projects, setProjects] = useState(PROJECTS_DEFAULT)
+  const touchDragIndex = useRef<number | null>(null);
+  const touchOriginIndex = useRef<number | null>(null);
+  const [projects, setProjects] = useState(PROJECTS_DEFAULT);
+  const [ghostPos, setGhostPos] = useState<{ x: number; y: number } | null>(null)
+  const [ghostProject, setGhostProject] = useState<typeof PROJECTS_DEFAULT[0] | null>(null)
+  const getTouchTargetIndex = (e: TouchEvent) => {
+    const touch = e.touches[0]
+    const els = document.elementsFromPoint(touch.clientX, touch.clientY)
+    for (const el of els) {
+      const card = el.closest('[data-index]')
+      if (card) return parseInt(card.getAttribute('data-index')!)
+    }
+    return null
+  };
   return (
     <div className={styles.app}>
       {/* Fake SaaS app chrome */}
@@ -53,12 +66,26 @@ export default function App() {
         <div className={styles.grid}>
           {projects.map((p, i) => (
             <div key={p.name}
+              data-index={i}
               className={`${styles.projectCard} ${dragIndex === i ? styles.dragging : ''}`}
               draggable
-              onDragStart={() => {setDragIndex(i); document.body.classList.add('dragging');}}
-              onDragEnd={() => {setDragIndex(null); document.body.classList.remove('dragging');}}
+              onDragStart={(e) => { 
+                setDragIndex(i)
+                setGhostProject(p)
+                document.body.classList.add('dragging')
+              }}
+              onDragEnd={() => {
+                setDragIndex(null)
+                setGhostPos(null)
+                setGhostProject(null)
+                document.body.classList.remove('dragging')
+              }}
               onDragOver={e => {
                 e.preventDefault()
+              }}
+              onDrag={(e) => {
+                if (e.clientX === 0 && e.clientY === 0) return
+                setGhostPos({ x: e.clientX, y: e.clientY })
               }}
               onDrop={() => {
                 if (dragIndex === null) return
@@ -66,6 +93,27 @@ export default function App() {
                 const [removed] = updated.splice(dragIndex, 1)
                 updated.splice(i, 0, removed)
                 setProjects(updated)
+                setDragIndex(null)
+              }}
+              onTouchStart={() => { 
+                touchDragIndex.current = i
+                touchOriginIndex.current = i
+                setDragIndex(i)
+              }}
+              onTouchMove={e => {
+                const target = getTouchTargetIndex(e.nativeEvent)
+                if (target !== null && target !== touchDragIndex.current) {
+                  const updated = [...projects]
+                  const [removed] = updated.splice(touchDragIndex.current!, 1)
+                  updated.splice(target, 0, removed)
+                  setProjects(updated)
+                  touchDragIndex.current = target
+                  setDragIndex(touchOriginIndex.current)
+                }
+              }}
+              onTouchEnd={() => {
+                touchDragIndex.current = null
+                touchOriginIndex.current = null
                 setDragIndex(null)
               }}
             >
@@ -88,6 +136,15 @@ export default function App() {
       </main>
 
       {/* The actual widget — floats over everything */}
+      {ghostPos && ghostProject && (
+        <div className={styles.ghostCard} style={{ left: ghostPos.x, top: ghostPos.y }}>
+          <div className={styles.projectHeader}>
+            <span className={styles.projectName}>{ghostProject.name}</span>
+            <span className={`${styles.projectStatus} ${styles[ghostProject.statusKey]}`}>{ghostProject.status}</span>
+          </div>
+          <p className={styles.projectDesc}>{ghostProject.desc}</p>
+        </div>
+      )}
       <ChangelogWidget />
       {showNewProject && (
       <div className={styles.overlay} onClick={() => setShowNewProject(false)}>
