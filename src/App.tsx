@@ -69,7 +69,7 @@ export default function App() {
               data-index={i}
               className={`${styles.projectCard} ${dragIndex === i ? styles.dragging : ''}`}
               draggable
-              onDragStart={(e) => { 
+              onDragStart={() => { 
                 setDragIndex(i)
                 setGhostProject(p)
                 document.body.classList.add('dragging')
